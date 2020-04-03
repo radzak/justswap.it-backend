@@ -2,7 +2,7 @@
 
 from django.urls import path
 
-from server.apps.main.views import index
+from justswap.main.views import index
 
 # Place your URLs here:
 

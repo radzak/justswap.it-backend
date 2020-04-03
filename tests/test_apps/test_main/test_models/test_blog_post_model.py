@@ -3,7 +3,7 @@
 from hypothesis import given
 from hypothesis.extra import django
 
-from server.apps.main.models import BlogPost
+from justswap.main.models import BlogPost
 
 
 class TestBlogPost(django.TestCase):

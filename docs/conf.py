@@ -30,7 +30,7 @@ with suppress(ImportError):
     import django  # noqa: WPS433
 
     # Normal django setup. That's how it should be in development:
-    os.environ['DJANGO_SETTINGS_MODULE'] = 'server.settings'
+    os.environ['DJANGO_SETTINGS_MODULE'] = 'justswap.settings'
     django.setup()
 
 

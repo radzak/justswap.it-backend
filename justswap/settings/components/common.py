@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 """
-Django settings for server project.
+Django settings for justswap project.
 
 For more information on this file, see
 https://docs.djangoproject.com/en/2.2/topics/settings/
@@ -14,7 +14,7 @@ from typing import Dict, List, Tuple, Union
 
 from django.utils.translation import ugettext_lazy as ugt
 
-from server.settings.components import BASE_DIR, config
+from justswap.settings.components import BASE_DIR, config  # TODO: relative import?
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
@@ -25,7 +25,8 @@ SECRET_KEY = config('DJANGO_SECRET_KEY')
 
 INSTALLED_APPS: Tuple[str, ...] = (
     # Your apps go here:
-    'server.apps.main',
+    'justswap.accounts.apps.AccountsConfig',
+    'justswap.main.apps.MainConfig',
 
     # Default django apps:
     'django.contrib.auth',
@@ -51,6 +52,8 @@ INSTALLED_APPS: Tuple[str, ...] = (
 
     # Third party apps
     'django_http_referrer_policy',
+    'rest_framework',
+    'djoser',
 )
 
 MIDDLEWARE: Tuple[str, ...] = (
@@ -75,9 +78,38 @@ MIDDLEWARE: Tuple[str, ...] = (
     'django_http_referrer_policy.middleware.ReferrerPolicyMiddleware',
 )
 
-ROOT_URLCONF = 'server.urls'
+ROOT_URLCONF = 'justswap.urls'
 
-WSGI_APPLICATION = 'server.wsgi.application'
+WSGI_APPLICATION = 'justswap.wsgi.application'
+
+AUTH_USER_MODEL = 'accounts.User'
+
+
+LOGIN_REDIRECT_URL = 'main:hello'
+
+
+# Rest framework
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+        # 'oauth2_provider.contrib.rest_framework.OAuth2Authentication',
+        # 'rest_framework_social_oauth2.authentication.SocialAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+    ],
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated',
+    ],
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 20,
+}
+
+SIMPLE_JWT = {
+   'AUTH_HEADER_TYPES': ('JWT',),
+}
+
+# DJOSER = {
+#     "USERNAME_RESET_CONFIRM_RETYPE": True
+# }
 
 
 # Database
@@ -139,7 +171,7 @@ TEMPLATES = [{
     'BACKEND': 'django.template.backends.django.DjangoTemplates',
     'DIRS': [
         # Contains plain text templates, like `robots.txt`:
-        BASE_DIR.joinpath('server', 'templates'),
+        BASE_DIR.joinpath('justswap', 'templates'),
     ],
     'OPTIONS': {
         'context_processors': [

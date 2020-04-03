@@ -7,7 +7,7 @@ This file is required and if development.py is present these
 values are overridden.
 """
 
-from server.settings.components import config
+from justswap.settings.components import config
 
 # Production flags:
 # https://docs.djangoproject.com/en/2.2/howto/deployment/

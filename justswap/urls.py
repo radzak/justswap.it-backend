@@ -18,8 +18,8 @@ from django.urls import include, path
 from django.views.generic import TemplateView
 from health_check import urls as health_urls
 
-from server.apps.main import urls as main_urls
-from server.apps.main.views import index
+from .main import urls as main_urls
+from .main.views import index
 
 admin.autodiscover()
 
@@ -27,6 +27,11 @@ admin.autodiscover()
 urlpatterns = [
     # Apps:
     path('main/', include(main_urls, namespace='main')),
+
+    # API
+    path('api/auth/', include('djoser.urls')),
+    path('api/auth/', include('djoser.urls.jwt')),
+    path('api/auth/', include('rest_framework.urls', namespace='rest_framework')),
 
     # Health checks:
     path('health/', include(health_urls)),  # noqa: DJ05

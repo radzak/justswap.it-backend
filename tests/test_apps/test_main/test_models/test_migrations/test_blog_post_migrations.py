@@ -2,7 +2,7 @@
 
 import pytest
 
-from server.apps.main.urls import app_name
+from justswap.main.urls import app_name
 
 
 def test_initial0001(migrator):

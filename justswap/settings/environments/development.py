@@ -9,8 +9,8 @@ SECURITY WARNING: don't run with debug turned on in production!
 import logging
 from typing import List
 
-from server.settings.components import config
-from server.settings.components.common import INSTALLED_APPS, MIDDLEWARE
+from justswap.settings.components import config
+from justswap.settings.components.common import INSTALLED_APPS, MIDDLEWARE
 
 # Setting the development status:
 
@@ -59,13 +59,17 @@ def custom_show_toolbar(request):
 
 DEBUG_TOOLBAR_CONFIG = {
     'SHOW_TOOLBAR_CALLBACK':
-        'server.settings.environments.development.custom_show_toolbar',
+        'justswap.settings.environments.development.custom_show_toolbar',
 }
 
 # This will make debug toolbar to work with django-csp,
 # since `ddt` loads some scripts from `ajax.googleapis.com`:
-CSP_SCRIPT_SRC = ("'self'", 'ajax.googleapis.com')
-CSP_IMG_SRC = ("'self'", 'data:')
+CSP_SCRIPT_SRC = None
+CSP_FONT_SRC = None
+CSP_IMG_SRC = None
+CSP_STYLE_SRC = None
+CSP_CONNECT_SRC = None
+CSP_DEFAULT_SRC = ("*", "'unsafe-inline'", "'unsafe-eval'", 'data:', 'blob:')
 
 
 # nplusone
