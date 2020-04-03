@@ -2,8 +2,8 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as AuthUserAdmin
 
-from .forms import UserChangeForm, UserCreationForm
-from .models import User
+from justswap.accounts.forms import UserChangeForm, UserCreationForm
+from justswap.accounts.models import User
 
 
 class UserAdmin(AuthUserAdmin):

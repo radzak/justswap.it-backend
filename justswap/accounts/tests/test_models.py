@@ -3,7 +3,7 @@
 import pytest
 from django.core.exceptions import ValidationError
 
-from ..models import User, username_validator
+from justswap.accounts.models import User, username_validator
 
 
 class TestUserNameValidator:

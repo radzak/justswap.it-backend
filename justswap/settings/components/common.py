@@ -14,7 +14,7 @@ from typing import Dict, List, Tuple, Union
 
 from django.utils.translation import ugettext_lazy as ugt
 
-from justswap.settings.components import BASE_DIR, config  # TODO: relative import?
+from justswap.settings.components import BASE_DIR, config
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/

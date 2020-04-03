@@ -18,8 +18,8 @@ from django.urls import include, path
 from django.views.generic import TemplateView
 from health_check import urls as health_urls
 
-from .main import urls as main_urls
-from .main.views import index
+from justswap.main import urls as main_urls
+from justswap.main.views import index
 
 admin.autodiscover()
 

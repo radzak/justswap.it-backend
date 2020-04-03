@@ -5,7 +5,7 @@ from __future__ import unicode_literals
 import django.utils.timezone
 from django.db import migrations, models
 
-from ..models import username_validator, UserManager
+from justswap.accounts.models import username_validator, UserManager
 
 
 class Migration(migrations.Migration):
