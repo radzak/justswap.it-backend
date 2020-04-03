@@ -5,7 +5,6 @@ from ...models import User
 
 
 class Command(BaseCommand):
-
-    def handle(self, *args, **options):
+    def handle(self, *args, **options) -> None:
         if not User.objects.filter(username="admin").exists():
             User.objects.create_superuser("admin", "admin@example.com", "admin")

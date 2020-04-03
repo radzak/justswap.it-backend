@@ -3,4 +3,4 @@ from django.apps import AppConfig
 
 
 class MainConfig(AppConfig):
-    name = 'justswap.main'
+    name = "justswap.main"

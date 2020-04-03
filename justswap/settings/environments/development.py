@@ -17,20 +17,20 @@ from justswap.settings.components.common import INSTALLED_APPS, MIDDLEWARE
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    config('DOMAIN_NAME'),
-    'localhost',
-    '0.0.0.0',  # noqa: S104
-    '127.0.0.1',
-    '[::1]',
+    config("DOMAIN_NAME"),
+    "localhost",
+    "0.0.0.0",  # noqa: S104
+    "127.0.0.1",
+    "[::1]",
 ]
 
 
 # Installed apps for developement only:
 
 INSTALLED_APPS += (
-    'debug_toolbar',
-    'nplusone.ext.django',
-    'django_migration_linter',
+    "debug_toolbar",
+    "nplusone.ext.django",
+    "django_migration_linter",
 )
 
 
@@ -44,11 +44,10 @@ STATICFILES_DIRS: List[str] = []
 # https://django-debug-toolbar.readthedocs.io
 
 MIDDLEWARE += (
-    'debug_toolbar.middleware.DebugToolbarMiddleware',
-
+    "debug_toolbar.middleware.DebugToolbarMiddleware",
     # https://github.com/bradmontgomery/django-querycount
     # Prints how many queries were executed, useful for the APIs.
-    'querycount.middleware.QueryCountMiddleware',
+    "querycount.middleware.QueryCountMiddleware",
 )
 
 
@@ -58,8 +57,7 @@ def custom_show_toolbar(request):
 
 
 DEBUG_TOOLBAR_CONFIG = {
-    'SHOW_TOOLBAR_CALLBACK':
-        'justswap.settings.environments.development.custom_show_toolbar',
+    "SHOW_TOOLBAR_CALLBACK": "justswap.settings.environments.development.custom_show_toolbar",
 }
 
 # This will make debug toolbar to work with django-csp,
@@ -69,21 +67,19 @@ CSP_FONT_SRC = None
 CSP_IMG_SRC = None
 CSP_STYLE_SRC = None
 CSP_CONNECT_SRC = None
-CSP_DEFAULT_SRC = ("*", "'unsafe-inline'", "'unsafe-eval'", 'data:', 'blob:')
+CSP_DEFAULT_SRC = ("*", "'unsafe-inline'", "'unsafe-eval'", "data:", "blob:")
 
 
 # nplusone
 # https://github.com/jmcarp/nplusone
 
 # Should be the first in line:
-MIDDLEWARE = (  # noqa: WPS440
-    'nplusone.ext.django.NPlusOneMiddleware',
-) + MIDDLEWARE
+MIDDLEWARE = ("nplusone.ext.django.NPlusOneMiddleware",) + MIDDLEWARE  # noqa: WPS440
 
 # Logging N+1 requests:
 NPLUSONE_RAISE = True  # comment out if you want to allow N+1 requests
-NPLUSONE_LOGGER = logging.getLogger('django')
+NPLUSONE_LOGGER = logging.getLogger("django")
 NPLUSONE_LOG_LEVEL = logging.WARN
 NPLUSONE_WHITELIST = [
-    {'model': 'admin.*'},
+    {"model": "admin.*"},
 ]
