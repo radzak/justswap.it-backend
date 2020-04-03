@@ -28,7 +28,7 @@ run_ci () {
   flake8 .
 
   # Running type checking, see https://github.com/typeddjango/django-stubs
-  mypy server tests/**/*.py
+  mypy justswap tests/**/*.py
 
   # Running tests:
   pytest --dead-fixtures --dup-fixtures
