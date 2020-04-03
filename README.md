@@ -13,18 +13,38 @@ This project was generated with [`wemake-django-template`](https://github.com/we
 
 You will need:
 
-- `python3.7` (see `pyproject.toml` for full version)
-- `postgresql` with version `9.6`
 - `docker` with [version at least](https://docs.docker.com/compose/compose-file/#compose-and-docker-compatibility-matrix) `18.02`
 
 
 ## Development
 
-When developing locally, we use:
+To run the Django app locally, you need to build the Docker containers,
+apply migrations and create a super user. 
 
-- [`editorconfig`](http://editorconfig.org/) plugin (**required**)
-- [`poetry`](https://github.com/python-poetry/poetry) (**required**)
-- `pycharm 2017+` or `vscode`
+
+```bash
+docker-compose build
+docker-compose run --rm web python manage.py migrate
+docker-compose run --rm web python manage.py createsu
+```
+
+To run the docker containers you need to invoke the following command:
+```bash
+docker-compose up
+```
+
+You can use `admin@example.com`, password: `admin` to login into
+the admin panel (http://localhost:8000/admin/login/) and Django Rest Framework
+Browsable API (http://localhost:8000/auth/login/).
+
+
+## API endpoints
+
+- `/api/auth/users/*` - User creation, activation, password change, see
+  https://djoser.readthedocs.io/en/latest/base_endpoints.html for more
+  information.
+- `/api/auth/jwt/*` - Obtain/refresh/verify JWT token endpoint, refer to
+  https://djoser.readthedocs.io/en/latest/jwt_endpoints.html for more details.  
 
 
 ## Documentation
