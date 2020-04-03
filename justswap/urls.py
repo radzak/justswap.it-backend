@@ -31,7 +31,7 @@ urlpatterns = [
     # API
     path('api/auth/', include('djoser.urls')),
     path('api/auth/', include('djoser.urls.jwt')),
-    path('api/auth/', include('rest_framework.urls', namespace='rest_framework')),
+    path('auth/', include('rest_framework.urls', namespace='rest_framework')),
 
     # Health checks:
     path('health/', include(health_urls)),  # noqa: DJ05
