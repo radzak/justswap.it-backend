@@ -5,6 +5,9 @@ from justswap.accounts.models import User
 
 
 class Command(BaseCommand):
-    def handle(self, *args, **options) -> None:
+    """Django create super user management command."""
+
+    def handle(self, *args, **options) -> None:  # noqa: WPS110
+        """The actual logic of the command."""
         if not User.objects.filter(username="admin").exists():
             User.objects.create_superuser("admin", "admin@example.com", "admin")

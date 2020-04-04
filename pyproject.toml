@@ -3,10 +3,6 @@ requires = ["poetry==1.0.5"]
 build-backend = "poetry.masonry.api"
 
 
-[tool.nitpick]
-style = "https://raw.githubusercontent.com/wemake-services/wemake-python-styleguide/master/styles/nitpick-style-wemake.toml"
-
-
 [tool.poetry]
 name = "justswap"
 description = "JustSwap"
@@ -84,3 +80,15 @@ polint = "^0.4"
 dennis = "^0.9"
 dump-env = "^1.1"
 black = "^19.10b0"
+
+
+[tool.nitpick]
+style = [
+  "https://raw.githubusercontent.com/wemake-services/wemake-python-styleguide/master/styles/nitpick-style-wemake.toml",
+  "https://gist.githubusercontent.com/radzak/a4882569909652b5ed738c8d14437b6d/raw/8a4c2d11b7ba9a0afe5841d7b1863a3d1a87c9b4/nitpick-style.toml"
+]
+
+
+[tool.black]
+line-length = 88
+target-version = ['py37']

@@ -5,6 +5,7 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
+    """Migration that adds unique constraint to the Email field of User model."""
 
     dependencies = [
         ("accounts", "0001_initial"),

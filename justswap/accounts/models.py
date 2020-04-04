@@ -14,18 +14,36 @@ from django.utils.translation import ugettext_lazy as _
 
 
 def username_validator(username: str) -> None:
+    """Check if a username meets the criteria of 3 to 15 alphanumeric characters."""
     regex = re.compile(r"^[a-zA-Z0-9]{3,15}$")
     if not regex.match(username):
         raise ValidationError("3 to 15 characters. Letters and digits.")
 
 
 class UserManager(BaseUserManager):
+    """Interface through which database query operations are provided to User models."""
+
     use_in_migrations = True
 
+    def create_user(self, username, email, password=None, **extra_fields):
+        """Create and save a user instance."""
+        extra_fields.setdefault("is_superuser", False)
+        extra_fields.setdefault("is_staff", False)
+        return self._create_user(username, email, password, **extra_fields)
+
+    def create_superuser(self, username, email, password, **extra_fields):
+        """Create and save a superuser instance."""
+        extra_fields.setdefault("is_superuser", True)
+        extra_fields.setdefault("is_staff", True)
+
+        if extra_fields.get("is_superuser") is not True:
+            raise ValueError("Superuser must have is_superuser=True.")
+        if extra_fields.get("is_staff") is not True:
+            raise ValueError("Superuser must have is_staff=True.")
+        return self._create_user(username, email, password, **extra_fields)
+
     def _create_user(self, username, email, password, **extra_fields):
-        """
-        Creates and saves a User with the given username, email and password.
-        """
+        """Create and save a user with the given username, email and password."""
         if not username:
             raise ValueError("The given username must be set")
         if not email:
@@ -37,26 +55,11 @@ class UserManager(BaseUserManager):
         user.save(using=self._db)
         return user
 
-    def create_user(self, username, email, password=None, **extra_fields):
-        extra_fields.setdefault("is_superuser", False)
-        return self._create_user(username, email, password, **extra_fields)
-
-    def create_superuser(self, username, email, password, **extra_fields):
-        extra_fields.setdefault("is_superuser", True)
-        extra_fields.setdefault("is_staff", True)
-
-        if extra_fields.get("is_superuser") is not True:
-            raise ValueError("Superuser must have is_superuser=True.")
-        if extra_fields.get("is_staff") is not True:
-            raise ValueError("Superuser must have is_staff=True.")
-        return self._create_user(username, email, password, **extra_fields)
-
 
 class User(AbstractBaseUser, PermissionsMixin):
-    """An abstract base class implementing a fully featured User model with
-    admin-compliant permissions.
+    """Fully featured User model with admin-compliant permissions.
 
-    Username and password are required. Other fields are optional.
+    Username, email and password are required. Other fields are optional.
     """
 
     username = models.CharField(
@@ -71,7 +74,6 @@ class User(AbstractBaseUser, PermissionsMixin):
     last_name = models.CharField(_("last name"), max_length=30, blank=True)
     email = models.EmailField(
         _("email address"),
-        blank=False,
         unique=True,
         error_messages={"unique": _("A user with that email already exists.")},
     )
@@ -85,12 +87,12 @@ class User(AbstractBaseUser, PermissionsMixin):
         default=True,
         help_text=_(
             "Designates whether this user should be treated as active. "
-            "Deselect this instead of deleting accounts."
+            + "Deselect this instead of deleting accounts."
         ),
     )
     date_joined = models.DateTimeField(_("date joined"), default=timezone.now)
 
-    objects = UserManager()
+    objects = UserManager()  # noqa: WPS110
 
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = ["username"]
@@ -100,9 +102,7 @@ class User(AbstractBaseUser, PermissionsMixin):
         verbose_name_plural = _("users")
 
     def get_full_name(self):
-        """
-        Returns the first_name plus the last_name, with a space in between.
-        """
+        """Return full name if present, username otherwise."""
         if self.first_name and self.last_name:
             full_name = f"{self.first_name} {self.last_name}"
         else:
@@ -110,15 +110,11 @@ class User(AbstractBaseUser, PermissionsMixin):
         return full_name.strip()
 
     def get_short_name(self):
-        """
-        Returns the short name for the user.
-        """
+        """Return first name if present, username otherwise."""
         if self.first_name:
             return self.first_name
         return self.username
 
     def email_user(self, subject, message, from_email=None, **kwargs):
-        """
-        Sends an email to this User.
-        """
+        """Send an email to this user."""
         send_mail(subject, message, from_email, [self.email], **kwargs)

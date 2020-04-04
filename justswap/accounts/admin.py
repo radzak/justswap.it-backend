@@ -6,7 +6,10 @@ from justswap.accounts.forms import UserChangeForm, UserCreationForm
 from justswap.accounts.models import User
 
 
+@admin.register(User)
 class UserAdmin(AuthUserAdmin):
+    """Admin configuration for User model."""
+
     fieldsets = (
         (None, {"fields": ("password", "username", "email")}),
         (
@@ -35,6 +38,3 @@ class UserAdmin(AuthUserAdmin):
     list_filter = ("is_staff", "is_superuser", "is_active", "groups")
     search_fields = ("email", "username")
     ordering = ("email", "username")
-
-
-admin.site.register(User, UserAdmin)
