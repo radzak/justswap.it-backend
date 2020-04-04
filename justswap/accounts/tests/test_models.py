@@ -40,25 +40,30 @@ class TestUserNameValidator:
 class TestUserModel:
     """Test suite for custom User model."""
 
+    @pytest.fixture
+    def user(self):
+        """Create a test user model instance."""
+        return User(username='test', email='test@example.com')
+
     @pytest.mark.django_db
-    def test_save_model(self, normal_user):
+    def test_save_model(self, user):
         """This test ensures that saving the user instance works."""
-        normal_user.save()
+        user.save()
 
-    def test_short_name(self, normal_user):
+    def test_short_name(self, user):
         """This test ensures that short name is correctly evaluated."""
-        normal_user.first_name = None
-        assert normal_user.get_short_name() == normal_user.username
-        normal_user.first_name = "someone"
-        assert normal_user.get_short_name() == normal_user.first_name
+        user.first_name = None
+        assert user.get_short_name() == user.username
+        user.first_name = "someone"
+        assert user.get_short_name() == user.first_name
 
-    def test_full_name(self, normal_user):
+    def test_full_name(self, user):
         """This test ensures that full name is correctly evaluated."""
-        normal_user.first_name = None
-        assert normal_user.get_full_name() == normal_user.username
-        normal_user.first_name = "someone"
-        normal_user.last_name = "someone"
-        assert normal_user.get_full_name() == "someone someone"
+        user.first_name = None
+        assert user.get_full_name() == user.username
+        user.first_name = "someone"
+        user.last_name = "someone"
+        assert user.get_full_name() == "someone someone"
 
 
 @pytest.mark.django_db
