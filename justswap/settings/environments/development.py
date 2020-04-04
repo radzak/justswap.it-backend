@@ -60,8 +60,9 @@ DEBUG_TOOLBAR_CONFIG = {
     "SHOW_TOOLBAR_CALLBACK": custom_show_toolbar,
 }
 
-# This will make debug toolbar to work with django-csp,
-# since `ddt` loads some scripts from `ajax.googleapis.com`:
+
+# Content Security Policy (CSP)
+# https://django-csp.readthedocs.io/en/latest/configuration.html
 CSP_SCRIPT_SRC = None
 CSP_FONT_SRC = None
 CSP_IMG_SRC = None
@@ -69,6 +70,10 @@ CSP_STYLE_SRC = None
 CSP_CONNECT_SRC = None
 CSP_DEFAULT_SRC = ("*", "'unsafe-inline'", "'unsafe-eval'", "data:", "blob:")
 
+
+# Cross-Origin Resource Sharing (CORS)
+# https://github.com/adamchainz/django-cors-headers#configuration
+CORS_ORIGIN_ALLOW_ALL = True
 
 # nplusone
 # https://github.com/jmcarp/nplusone

@@ -36,8 +36,6 @@ INSTALLED_APPS: Tuple[str, ...] = (
     # django-admin:
     "django.contrib.admin",
     "django.contrib.admindocs",
-    # Security:
-    "axes",
     # Health checks:
     # You may want to enable other checks as well,
     # see: https://github.com/KristianOellegaard/django-health-check
@@ -46,14 +44,17 @@ INSTALLED_APPS: Tuple[str, ...] = (
     "health_check.cache",
     "health_check.storage",
     # Third party apps
+    "axes",
+    "corsheaders",
     "django_http_referrer_policy",
-    "rest_framework",
     "djoser",
+    "rest_framework",
 )
 
 MIDDLEWARE: Tuple[str, ...] = (
-    # Content Security Policy:
     "csp.middleware.CSPMiddleware",
+    "corsheaders.middleware.CorsMiddleware",
+    "django_http_referrer_policy.middleware.ReferrerPolicyMiddleware",
     # Django:
     "django.middleware.security.SecurityMiddleware",
     "django_feature_policy.FeaturePolicyMiddleware",  # django-feature-policy
@@ -66,8 +67,6 @@ MIDDLEWARE: Tuple[str, ...] = (
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     # Axes:
     "axes.middleware.AxesMiddleware",
-    # Django HTTP Referrer Policy:
-    "django_http_referrer_policy.middleware.ReferrerPolicyMiddleware",
 )
 
 ROOT_URLCONF = "justswap.urls"
@@ -84,8 +83,6 @@ LOGIN_REDIRECT_URL = "main:hello"
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": [
         "rest_framework_simplejwt.authentication.JWTAuthentication",
-        # 'oauth2_provider.contrib.rest_framework.OAuth2Authentication',
-        # 'rest_framework_social_oauth2.authentication.SocialAuthentication',
         "rest_framework.authentication.SessionAuthentication",
     ],
     "DEFAULT_PERMISSION_CLASSES": ["rest_framework.permissions.IsAuthenticated"],

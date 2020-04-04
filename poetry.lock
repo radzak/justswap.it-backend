@@ -327,6 +327,17 @@ django-appconf = ">=1.0.3"
 django-ipware = ">=2.0.2"
 
 [[package]]
+category = "main"
+description = "django-cors-headers is a Django application for handling the server headers required for Cross-Origin Resource Sharing (CORS)."
+name = "django-cors-headers"
+optional = false
+python-versions = ">=3.5"
+version = "3.2.1"
+
+[package.dependencies]
+Django = ">=1.11"
+
+[[package]]
 category = "dev"
 description = "Django template coverage.py plugin"
 name = "django-coverage-plugin"
@@ -2047,7 +2058,7 @@ docs = ["sphinx", "jaraco.packaging (>=3.2)", "rst.linker (>=1.9)"]
 testing = ["jaraco.itertools", "func-timeout"]
 
 [metadata]
-content-hash = "9f1f09490f3e8f0df01b0a1fb74f1921ca808a16ed8dab6bc6979f34013c080a"
+content-hash = "4bc93b5e975ff2f0639516655ed578c1c9347a295de9c9b350dc35806bbea32d"
 python-versions = "3.7.7"
 
 [metadata.files]
@@ -2257,6 +2268,10 @@ django-appconf = [
 django-axes = [
     {file = "django-axes-5.3.1.tar.gz", hash = "sha256:23eee8297dfcb5aa780e4925f58d723387afe8ecc8fd6a7e9522d26c95c7b880"},
     {file = "django_axes-5.3.1-py3-none-any.whl", hash = "sha256:49fa9736cbbf7d83a61ed57f7b2ebd65f8d3064bb0c45b945bfa7421288031a1"},
+]
+django-cors-headers = [
+    {file = "django-cors-headers-3.2.1.tar.gz", hash = "sha256:a5960addecc04527ab26617e51b8ed42f0adab4594b24bb0f3c33e2bd3857c3f"},
+    {file = "django_cors_headers-3.2.1-py3-none-any.whl", hash = "sha256:a785b5f446f6635810776d9f5f5d23e6a2a2f728ea982648370afaf0dfdf2627"},
 ]
 django-coverage-plugin = [
     {file = "django_coverage_plugin-1.8.0.tar.gz", hash = "sha256:d53cbf3828fd83d6b89ff7292c6805de5274e36411711692043e67bcde25ae0c"},

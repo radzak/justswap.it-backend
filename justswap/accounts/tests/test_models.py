@@ -43,7 +43,7 @@ class TestUserModel:
     @pytest.fixture
     def user(self):
         """Create a test user model instance."""
-        return User(username='test', email='test@example.com')
+        return User(username="test", email="test@example.com")
 
     @pytest.mark.django_db
     def test_save_model(self, user):
